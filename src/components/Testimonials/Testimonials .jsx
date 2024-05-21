@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef} from 'react'
 import './Testimonials.css'
 import next_icon from '../../Assets/next_icon.png'
 import back_icon from '../../Assets/back_icon.png'
@@ -8,32 +8,60 @@ import user_3 from '../../Assets/user_3.png'
 import user_4 from '../../Assets/user_4.png'
 
 
-const Testimonials  = () => {
+const Testimonials = () => {
+
+    // const [activeSlide, setActiveSlide] = useState(0);
+    // const totalSlides = 4; // Total number of slides
+
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setActiveSlide(prevIndex => (prevIndex + 1) % totalSlides); // Loop back to first slide after reaching the last slide
+    //     }, 5000); // Adjust the interval duration (in milliseconds) as needed
+
+    //     return () => clearInterval(interval); // Cleanup function to clear the interval on component unmount
+    // }, [totalSlides]);
+
+    // let tx = -activeSlide * 100;
+
+    // useEffect(() => {
+    //     if (slider.current) {
+    //         slider.current.style.transform = `translateX(${tx}%)`;
+    //     }
+    // }, [tx]);
 
     const slider = useRef();
-    let tx = 0;
+     let tx =0;
+    const slideForward = () => {
+       if (slider.current){
 
-const slideForward =()=>{
-    if( tx > -50){
-        tx -= 25;
-    }
-    slider.current.style.transform =`translateX(${tx}%)`
-}
-const slideBackward =()=>{
-    if (tx<0){
-        tx+=25;
-    }
+        if (tx > -50){
+            tx-=25;
+            slider.current.style.transform = `translateX(${tx}%)`
+        }
+        
+       }
 
-    slider.current.style.transform =`translateX(${tx}%)`
-}
+    };
+
+    const slideBackward = () => {
+        if (slider.current) {
+            if (tx < 0) {
+                tx += 25;
+                slider.current.style.transform = `translateX(${tx}%)`;
+            }
+        }
+    };
+    
+
 
   return (
     
         <div className="testimonials">
-            <img src={next_icon} alt="" className='next-btn' onClick={slideForward}/>
-            <img src={back_icon}alt="" className='back-btn' onClick={slideBackward} />
-            <div className="slider">
-                <ul>
+            <img src={next_icon} alt="" className="next-btn" onClick={slideForward} />
+            <img src={back_icon} alt="" className="back-btn" onClick={slideBackward} />
+
+            <div className="slider" >
+                <ul ref={slider}>
                     <li>
                         <div className="slide">
                             <div className="user_info">
@@ -100,11 +128,7 @@ const slideBackward =()=>{
                     </li>
                 </ul>
             </div>
-            {/* <img src={us
-            er_1 } alt="" />
-            <img src={user_2} alt="" />
-            <img src={user_3} alt="" />
-            <img src={user_4} alt=""/> */}
+            
         </div>
     
   )
